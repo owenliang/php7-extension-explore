@@ -8,7 +8,7 @@
 // myext.github = "some value"
 //
 zend_ini_entry_def ini_defs[] = {
-        // name,on_modify,mh_arg1,mh_arg2,mh_arg3,value,displayer,modifiable
+        // name,on_modify,mh_arg1,mh_arg2,mh_arg3,value,displayer,modifiable,name_length,value_length
         {MYEXT_INI_NAME_GITHUB, NULL, NULL, NULL, NULL, MYEXT_INI_VALUE_GITHUB, NULL, ZEND_INI_ALL, sizeof(MYEXT_INI_NAME_GITHUB) - 1, sizeof(MYEXT_INI_VALUE_GITHUB) - 1},
         {NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0},
 };
