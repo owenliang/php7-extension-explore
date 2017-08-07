@@ -62,7 +62,7 @@ zend_module_entry module = {
 };
 
 zend_module_dep deps[] = {
-        {"standard"/**/, NULL, NULL, MODULE_DEP_REQUIRED},
+        {"standard", NULL, NULL, MODULE_DEP_REQUIRED},
         { NULL, NULL, NULL, 0},
 };
 
