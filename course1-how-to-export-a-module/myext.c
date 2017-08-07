@@ -10,12 +10,12 @@ int extension_shutdown(int type, int module_number) {
     return SUCCESS;
 }
 
-int extension_before_request() {
+int extension_before_request(int type, int module_number) {
     TRACE("extension_before_request");
     return SUCCESS;
 }
 
-int extension_after_request() {
+int extension_after_request(int type, int module_number) {
     TRACE("extension_after_request");
     return SUCCESS;
 }

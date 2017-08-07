@@ -24,14 +24,14 @@ int extension_shutdown(int type, int module_number) {
     return SUCCESS;
 }
 
-int extension_before_request() {
+int extension_before_request(int type, int module_number) {
     TRACE("extension_before_request");
     const char* value = zend_ini_string(MYEXT_INI_NAME_GITHUB, sizeof(MYEXT_INI_NAME_GITHUB) - 1, 0);
     TRACE("ini: %s=%s", MYEXT_INI_NAME_GITHUB, value);
     return SUCCESS;
 }
 
-int extension_after_request() {
+int extension_after_request(int type, int module_number) {
     TRACE("extension_after_request");
     return SUCCESS;
 }
