@@ -159,6 +159,33 @@ void zif_testzval(zend_execute_data *execute_data, zval *return_value) {
     zend_string_release(real_str);
     ZVAL_STR(real_zval, zend_string_init("IS_STRING_TOO", sizeof("IS_STRING_TOO") - 1, 0));
     zval_ptr_dtor(&ref_ref_zval);
+
+    // tips:
+    // zval_addref_p/zval_delref_p can only be applied to zval with ref count
+    zval double_zval;
+    ZVAL_DOUBLE(&double_zval, 13.14);
+    assert(!Z_REFCOUNTED_P(&double_zval));
+    // the following line will trigger assert-coredump
+    // zval_delref_p(&double_zval);
+
+    // zval copy
+    zval copy_from;
+    ZVAL_STR(&copy_from, zend_string_init("test ZVAL_COPY", sizeof("test ZVAL_COPY") - 1, 0));
+
+    zval copy_to1;
+    ZVAL_COPY(&copy_to1, &copy_from);
+
+    // same as ZVAL_COPY above
+    zval copy_to2;
+    memcpy(&copy_to2, &copy_from, sizeof(copy_from)); // same as ZVAL_COPY_VALUE
+    if (Z_REFCOUNTED_P(&copy_from)) {
+        zval_addref_p(&copy_to2);
+    }
+
+    // release all reference count
+    zval_ptr_dtor(&copy_from);
+    zval_ptr_dtor(&copy_from);
+    zval_ptr_dtor(&copy_from);
 }
 
 // zif_strtolower's params defination
