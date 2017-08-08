@@ -89,6 +89,78 @@ void zif_strtoupper(zend_execute_data *execute_data, zval *return_value) {
     *return_value = strcase_convert(&args[0], 0);
 }
 
+void zif_testzval(zend_execute_data *execute_data, zval *return_value) {
+    TRACE("zif_testzval");
+
+    // undef
+    zval undef_zval;
+    ZVAL_UNDEF(&undef_zval);
+    assert(Z_TYPE(undef_zval) == IS_UNDEF);
+
+    // null
+    zval null_zval;
+    ZVAL_NULL(&null_zval);
+    assert(Z_TYPE(null_zval) == IS_NULL);
+
+    // bool
+    zval bool_zval;
+    ZVAL_BOOL(&bool_zval, 1);
+    assert(Z_TYPE(bool_zval) == IS_TRUE);
+
+    // long
+    zval long_zval;
+    ZVAL_LONG(&long_zval, 1024);
+    assert(Z_TYPE(long_zval) == IS_LONG);
+    assert(Z_LVAL_P(&long_zval) == 1024);
+
+    // string
+    zval str_zval;
+    zend_string *str = zend_string_init("IS_STRING", sizeof("IS_STRING") - 1, 0);
+    ZVAL_STR(&str_zval, str);
+    assert(Z_TYPE(str_zval) == IS_STRING);
+    assert(strncmp(Z_STRVAL_P(&str_zval), "IS_STRING", Z_STRLEN_P(&str_zval)) == 0);
+    zval_addref_p(&str_zval); // add 1 ref for arr_zval below
+    zval_addref_p(&str_zval); // add 1 ref for ref_zval below
+    zval_ptr_dtor(&str_zval);
+
+    // array
+    zval arr_zval;
+    zend_array *arr = emalloc(sizeof(*arr));
+    zend_hash_init(arr, 0, NULL, ZVAL_PTR_DTOR, 0);
+
+    ZVAL_ARR(&arr_zval, arr);
+    assert(Z_TYPE(arr_zval) == IS_ARRAY);
+    zend_symtable_str_update(arr, "str_zval", sizeof("str_zval") - 1, &str_zval);
+    zval *zval_in_arr = zend_symtable_str_find(arr, "str_zval", sizeof("str_zval") - 1);
+    assert(zval_in_arr);
+    assert(Z_TYPE_P(zval_in_arr) == IS_STRING);
+    assert(GC_REFCOUNT(Z_COUNTED_P(zval_in_arr)) == 2);
+    uint32_t num_elems = zend_hash_num_elements(Z_ARRVAL_P(&arr_zval));
+    assert(num_elems == 1);
+    zval_ptr_dtor(&arr_zval);
+
+    // reference
+    zval ref_zval;
+    zend_reference *ref = emalloc(sizeof(*ref));
+    GC_REFCOUNT(ref) = 1;
+    GC_TYPE_INFO(ref) = IS_REFERENCE;
+    memcpy(&(ref->val), &str_zval, sizeof(str_zval));
+    ZVAL_REF(&ref_zval, ref);
+    assert(Z_TYPE(ref_zval) == IS_REFERENCE);
+    zval_addref_p(&ref_zval); // add 1 ref for ref_ref_zval
+    zval_ptr_dtor(&ref_zval);
+
+    // zval ref to reference
+    zval ref_ref_zval;
+    memcpy(&ref_ref_zval, &ref_zval, sizeof(ref_zval));
+    zval *real_zval = Z_REFVAL_P(&ref_ref_zval);
+    zend_string *real_str = Z_STR_P(real_zval);
+    assert(real_str == str);
+    zend_string_release(real_str);
+    ZVAL_STR(real_zval, zend_string_init("IS_STRING_TOO", sizeof("IS_STRING_TOO") - 1, 0));
+    zval_ptr_dtor(&ref_ref_zval);
+}
+
 // zif_strtolower's params defination
 zend_internal_arg_info myext_strtolwer_arginfo[] = {
         // required_num_args(interger stored in pointer)
@@ -105,6 +177,7 @@ zend_function_entry funcs[] = {
         // fname,handler,arg_info,,num_args,flags
         {"my_strtolower", zif_strtolower, myext_strtolwer_arginfo, 1, 0},
         {"my_strtoupper", zif_strtoupper, myext_strtoupper_arginfo, 1, 0},
+        {"my_testzval", zif_testzval, NULL, 0, 0},
         {NULL, NULL, NULL, 0, 0},
 };
 
