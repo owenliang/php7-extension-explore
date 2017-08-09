@@ -130,6 +130,7 @@ void zif_testzval(zend_execute_data *execute_data, zval *return_value) {
 
     ZVAL_ARR(&arr_zval, arr);
     assert(Z_TYPE(arr_zval) == IS_ARRAY);
+    assert((void*)arr_zval.value.counted == (void*)&(arr_zval.value.arr->gc));
     zend_symtable_str_update(arr, "str_zval", sizeof("str_zval") - 1, &str_zval);
     zval *zval_in_arr = zend_symtable_str_find(arr, "str_zval", sizeof("str_zval") - 1);
     assert(zval_in_arr);
