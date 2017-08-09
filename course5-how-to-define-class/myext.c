@@ -100,6 +100,9 @@ int extension_startup(int type, int module_number) {
     INIT_CLASS_ENTRY_EX(myext_child_class_def, "myext_child", sizeof("myext_child") - 1, NULL);
     assert(myext_child_class_handle = zend_register_internal_class_ex(&myext_child_class_def, myext_class_handle));
 
+    // final class, no more child class
+    myext_child_class_handle->ce_flags |= ZEND_ACC_FINAL;
+
     return SUCCESS;
 }
 
