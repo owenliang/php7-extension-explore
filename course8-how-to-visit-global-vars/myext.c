@@ -150,9 +150,15 @@ int extension_before_request(int type, int module_number) {
     // find it in global symbol table
     zval *server = zend_hash_str_find(&EG(symbol_table), "_SERVER", sizeof("_SERVER") - 1);
     assert(server != NULL);
-    // var_dump($_SERVER)
-    php_var_dump(server, 10);
+    assert(Z_TYPE_P(server) == IS_ARRAY);
 
+    // var_dump($_SERVER)
+    zval func_name;
+    ZVAL_STR(&func_name, zend_string_init("var_dump", sizeof("var_dump") - 1, 0));
+    zval retval;
+    assert(call_user_function(&EG(function_table), NULL, &func_name, &retval, 1, server) == SUCCESS);
+    zval_ptr_dtor(&func_name);
+    zval_ptr_dtor(&retval);
     return SUCCESS;
 }
 
