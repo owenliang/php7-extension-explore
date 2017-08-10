@@ -144,7 +144,7 @@ int extension_before_request(int type, int module_number) {
     const char* value = zend_ini_string(MYEXT_INI_NAME_GITHUB, sizeof(MYEXT_INI_NAME_GITHUB) - 1, 0);
     TRACE("ini: %s=%s", MYEXT_INI_NAME_GITHUB, value);
 
-    // try active jit globals
+    // try active jit super globals
     zend_is_auto_global_str("_SERVER", sizeof("_SERVER") - 1);
 
     // find it in global symbol table
