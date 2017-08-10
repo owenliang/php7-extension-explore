@@ -196,6 +196,13 @@ void zif_myext_test_object(zend_execute_data *execute_data, zval *return_value) 
     zval myext_obj;
     assert(object_init_ex(&myext_obj, myext_handle) == SUCCESS);
 
+    // call object's __construct
+    zval ctor_name;
+    zval ctor_retval;
+    ZVAL_STR(&ctor_name, zend_string_init("__construct", sizeof("__construct") - 1, 0));
+    assert(call_user_function(&EG(function_table), &myext_obj, &ctor_name, &ctor_retval, 0, NULL) == SUCCESS);
+    zval_ptr_dtor(&ctor_name);
+
     // call object's method
     zval func_name;
     ZVAL_STR(&func_name, zend_string_init("strtolower", sizeof("strtolower") - 1, 0));
