@@ -60,7 +60,7 @@ zend_function_entry final_funcs[] = {
 
 zend_function_entry global_funcs[] = {
         // fname,handler,arg_info,,num_args,flags
-        {"test_object", zif_myext_test_object, NULL, 0, ZEND_ACC_PUBLIC},
+        {"test_object", zif_myext_test_object, NULL, 0, 0},
         {NULL, NULL, NULL, 0, 0},
 };
 
