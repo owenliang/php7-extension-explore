@@ -8,3 +8,4 @@
 * [course5-how-to-define-class](https://yuerblog.cc/2017/08/09/course5-how-to-define-class/)
 * [course6-how-to-call-php-functions](https://yuerblog.cc/2017/08/10/course6-how-to-call-php-functions/)
 * [course7-how-to-create-object](https://yuerblog.cc/2017/08/10/course7-how-to-create-object/)
+* [course8-how-to-visit-global-vars](https://yuerblog.cc/2017/08/11/course8-how-to-visit-global-vars/)
