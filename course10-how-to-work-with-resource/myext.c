@@ -478,7 +478,7 @@ void zif_myext_test_resource(zend_execute_data *execute_data, zval *return_value
     // wrappped with zval, refcount=2
     zval res_zval;
     ZVAL_RES(&res_zval, res);
-    zval_addref_ptr(&res_zval);
+    zval_addref_p(&res_zval);
     assert(GC_REFCOUNT(res) == 2);
 
     // release resource directly, left refcount=1

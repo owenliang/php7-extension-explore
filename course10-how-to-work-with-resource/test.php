@@ -23,4 +23,6 @@ test_object();
 
 test_array();
 
+test_resource();
+
 echo GITHUB . PHP_EOL;
