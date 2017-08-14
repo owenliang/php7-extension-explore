@@ -11,3 +11,4 @@
 * [course8-how-to-visit-global-vars](https://yuerblog.cc/2017/08/11/course8-how-to-visit-global-vars/)
 * [course9-how-to-work-with-zend-array](https://yuerblog.cc/2017/08/11/course9-how-to-work-with-zend-array/)
 * [course10-how-to-work-with-resource](https://yuerblog.cc/2017/08/14/course10-how-to-work-with-resource/)
+* [course11-how-to-include-php-file](http://yuerblog.cc/2017/08/14/course11-how-to-include-php-file/)
