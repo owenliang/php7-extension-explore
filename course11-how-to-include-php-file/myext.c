@@ -514,6 +514,14 @@ void zif_myext_test_include(zend_execute_data *execute_data, zval *return_value)
 
     zend_string *filename = zend_string_init(realpath, strlen(realpath), 0);
 
+    // already loaded before
+    zval *existed = zend_hash_find(&EG(included_files), filename);
+    if (existed) {
+        zend_string_release(filename);
+        ZVAL_BOOL(return_value, 0);
+        return;
+    }
+
     // not opened file handle
     zend_file_handle file_handle = {
             filename:  filename->val,
@@ -522,14 +530,6 @@ void zif_myext_test_include(zend_execute_data *execute_data, zval *return_value)
             opened_path: NULL,
             handle: {fp: NULL},
     };
-
-    // already loaded before
-    zval *existed = zend_hash_find(&EG(included_files), filename);
-    if (existed) {
-        zend_string_release(filename);
-        ZVAL_BOOL(return_value, 0);
-        return;
-    }
 
     // compile file into opcode
     zend_op_array *op_array = zend_compile_file(&file_handle, ZEND_INCLUDE);
