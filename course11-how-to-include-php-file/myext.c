@@ -503,7 +503,16 @@ void zif_myext_test_include(zend_execute_data *execute_data, zval *return_value)
     zval *args = ZEND_CALL_ARG(execute_data, 1);
     assert(num_args == 1);
 
-    zend_string *filename = zend_string_init(Z_STRVAL(args[0]), Z_STRLEN(args[0]), 0);
+    // relative path to absolute full path
+    char realpath[MAXPATHLEN];
+    if (!virtual_realpath(Z_STRVAL(args[0]), realpath)) {
+        ZVAL_BOOL(return_value, 0);
+        return;
+    }
+
+    TRACE("realpath=%s", realpath);
+
+    zend_string *filename = zend_string_init(realpath, strlen(realpath), 0);
 
     // not opened file handle
     zend_file_handle file_handle = {

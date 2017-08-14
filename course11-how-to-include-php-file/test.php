@@ -26,9 +26,8 @@ test_array();
 test_resource();
 
 $file = __DIR__ . "/other.php";
-var_dump(test_include($file)); // array
+var_dump(test_include("other.php")); // array
 var_dump(test_include($file)); // false
-var_dump($file);
 
 echo SOME_DEF . PHP_EOL;
 
