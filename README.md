@@ -1,5 +1,15 @@
 # PHP7扩展开发系列教程
 
+## 环境要求
+* PHP7.1+
+* Linux
+
+## 常见问题
+* 示例代码大量使用带副作用的assert断言, 请确保gcc工作在debug模式
+
+## 提问与反馈
+* 请提交issue
+
 ## 教程清单
 * [course1-how-to-export-a-module](https://yuerblog.cc/2017/08/07/course1-how-to-export-a-module/)
 * [course2-how-to-define-deps-and-ini](https://yuerblog.cc/2017/08/07/course2-how-to-define-deps-and-ini/)
