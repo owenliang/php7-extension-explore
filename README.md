@@ -22,3 +22,4 @@
 * [course9-how-to-work-with-zend-array](https://yuerblog.cc/2017/08/11/course9-how-to-work-with-zend-array/)
 * [course10-how-to-work-with-resource](https://yuerblog.cc/2017/08/14/course10-how-to-work-with-resource/)
 * [course11-how-to-include-php-file](http://yuerblog.cc/2017/08/14/course11-how-to-include-php-file/)
+* [course12-how-to-throw-error-and-exception](https://yuerblog.cc/2017/09/08/course12-how-to-throw-error-and-exception/)
