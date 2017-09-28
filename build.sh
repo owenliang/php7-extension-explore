@@ -5,7 +5,7 @@
 set -e
 
 for c in course*;do
-        cd $c && make && make && cd -
+        cd $c && make && cd -
 done
 
 sudo echo "extension=myext.so" >> `php --ini|grep Loaded| awk '{print $NF}'`
