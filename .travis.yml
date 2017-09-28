@@ -1,0 +1,7 @@
+language: php
+
+php:
+	- 7.1
+
+script:
+	sh build.sh
