@@ -1,4 +1,5 @@
 # PHP7扩展开发系列教程
+[![Build Status](https://travis-ci.org/owenliang/php7-extension-explore.svg?branch=master)](https://travis-ci.org/owenliang/php7-extension-explore)
 
 ## 点赞
 如果我帮到了你，请右上角点1个star!
