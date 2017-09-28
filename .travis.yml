@@ -3,5 +3,7 @@ language: php
 php:
  - 7.1
 
+sudo: required
+
 script:
  sh build.sh
